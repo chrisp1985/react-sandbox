@@ -5,6 +5,8 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import DashboardSidebar from './components/nav/DashboardSidebar.tsx';
 import { Home } from './components/home/Home.tsx';
 import { Profile } from './components/profile/Profile.tsx';
+import { NFL } from './components/nfl/NFL.tsx';
+import { Marvel } from './components/marvel/Marvel.tsx';
 
 function App() {
 
@@ -20,13 +22,13 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/projects/films" element={<FilmList />} />
+          <Route path="/projects/nfl" element={<NFL />} />       
+          <Route path="/projects/marvel" element={<Marvel />} />                
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
     </div>
   )
 }
-
-
 
 export default App

@@ -167,6 +167,20 @@ export default function DashboardSidebar({
                     href="/projects/films"
                     selected={!!matchPath('/projects/films/*', pathname) || pathname === '/projects/films'}
                   />
+                  <DashboardSidebarPageItem
+                    id="nfl"
+                    title="NFL"
+                    icon={<DescriptionIcon />}
+                    href="/projects/nfl"
+                    selected={!!matchPath('/projects/nfl/*', pathname) || pathname === '/projects/nfl'}
+                  />      
+                  <DashboardSidebarPageItem
+                    id="marvel"
+                    title="Marvel"
+                    icon={<DescriptionIcon />}
+                    href="/projects/marvel"
+                    selected={!!matchPath('/projects/marvel/*', pathname) || pathname === '/projects/marvel'}
+                  />                               
                 </List>
               }
             />
