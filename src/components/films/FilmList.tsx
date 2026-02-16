@@ -63,7 +63,7 @@ export const FilmList = () => {
 
       <Grid container spacing={3}>
         {pageItems.map((film) => (
-          <Grid item key={film.title} xs={12} sm={6} md={4} lg={3}>
+          <Grid key={film.title} >
             <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
               {film.image ? (
                 <CardMedia component="img" height="160" image={film.image} alt={film.title} />
