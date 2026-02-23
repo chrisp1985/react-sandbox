@@ -6,7 +6,7 @@ import DashboardSidebar from './components/nav/DashboardSidebar.tsx';
 import { Home } from './components/home/Home.tsx';
 import { Profile } from './components/profile/Profile.tsx';
 import { NFLSearch } from './components/nfl/NFLSearch.tsx';
-import { Marvel } from './components/marvel/Marvel.tsx';
+import { RandMRest } from './components/randmrest/RandMRest.tsx';
 
 function App() {
 
@@ -23,7 +23,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/projects/films" element={<FilmList />} />
           <Route path="/projects/nfl" element={<NFLSearch />} />       
-          <Route path="/projects/marvel" element={<Marvel />} />                
+          <Route path="/projects/randmrest" element={<RandMRest />} />                
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

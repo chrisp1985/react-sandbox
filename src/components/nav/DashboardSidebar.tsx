@@ -175,11 +175,11 @@ export default function DashboardSidebar({
                     selected={!!matchPath('/projects/nfl/*', pathname) || pathname === '/projects/nfl'}
                   />      
                   <DashboardSidebarPageItem
-                    id="marvel"
-                    title="Marvel"
+                    id="randmrest"
+                    title="Rick and Morty Rest"
                     icon={<DescriptionIcon />}
-                    href="/projects/marvel"
-                    selected={!!matchPath('/projects/marvel/*', pathname) || pathname === '/projects/marvel'}
+                    href="/projects/randmrest"
+                    selected={!!matchPath('/projects/randmrest/*', pathname) || pathname === '/projects/randmrest'}
                   />                               
                 </List>
               }
