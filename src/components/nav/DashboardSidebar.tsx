@@ -4,9 +4,9 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
-import Toolbar from '@mui/material/Toolbar';
 import type {} from '@mui/material/themeCssVarsAugmentation';
 import PersonIcon from '@mui/icons-material/Person';
+import mankey from './mankey.png';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import DescriptionIcon from '@mui/icons-material/Description';
 import LayersIcon from '@mui/icons-material/Layers';
@@ -106,7 +106,13 @@ export default function DashboardSidebar({
   const getDrawerContent = useCallback(
     (viewport: 'phone' | 'tablet' | 'desktop') => (
       <Fragment>
-        <Toolbar />
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', pt: 2 }}>
+          <img
+            src={mankey}
+            alt="Logo"
+            style={{ width: 106, height: 106, marginBottom: 8, borderRadius: '50%', background: '#fff' }}
+          />
+        </Box>
         <Box
           component="nav"
           aria-label={`${viewport.charAt(0).toUpperCase()}${viewport.slice(1)}`}
@@ -127,7 +133,7 @@ export default function DashboardSidebar({
           <List
             dense
             sx={{
-              padding: mini ? 0 : 0.5,
+              padding: 0,
               mb: 4,
               width: mini ? MINI_DRAWER_WIDTH : 'auto',
             }}
@@ -180,7 +186,14 @@ export default function DashboardSidebar({
                     icon={<DescriptionIcon />}
                     href="/projects/randmrest"
                     selected={!!matchPath('/projects/randmrest/*', pathname) || pathname === '/projects/randmrest'}
-                  />                               
+                  />
+                  <DashboardSidebarPageItem
+                    id="elexon"
+                    title="Elexon BMRS"
+                    icon={<BarChartIcon />}
+                    href="/projects/elexon"
+                    selected={!!matchPath('/projects/elexon/*', pathname) || pathname === '/projects/elexon'}
+                  />
                 </List>
               }
             />
@@ -213,7 +226,33 @@ export default function DashboardSidebar({
           width: drawerWidth,
           boxSizing: 'border-box',
           backgroundImage: 'none',
+          background: 'linear-gradient(180deg, #222a42 0%, #1d253b 100%)',
+          color: '#fff',
+          borderRight: 'none',
+          boxShadow: '2px 0 12px 0 rgba(44,62,80,0.08)',
           ...getDrawerWidthTransitionMixin(expanded),
+          '& .MuiListSubheader-root': {
+            color: '#fff',
+            background: 'transparent',
+            fontWeight: 700,
+            letterSpacing: 1,
+          },
+          '& .MuiListItemButton-root': {
+            color: '#fff',
+            borderRadius: 8,
+            margin: '2px 0',
+            '&.Mui-selected, &.Mui-selected:hover': {
+              background: 'rgba(255,255,255,0.12)',
+              color: '#fff',
+            },
+            '&:hover': {
+              background: 'rgba(255,255,255,0.08)',
+              color: '#fff',
+            },
+          },
+          '& .MuiSvgIcon-root': {
+            color: '#fff',
+          },
         },
       };
     },

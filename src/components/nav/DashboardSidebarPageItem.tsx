@@ -73,7 +73,7 @@ export default function DashboardSidebarPageItem({
   } else if (!mini && fullyExpanded) {
     nestedNavigationCollapseSx = {
       ml: 0.5,
-      fontSize: 20,
+      fontSize: 18,
       transform: `rotate(${expanded ? 0 : -90}deg)`,
       transition: (theme: Theme) =>
         theme.transitions.create('transform', {

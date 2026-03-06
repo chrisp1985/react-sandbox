@@ -25,7 +25,7 @@ export default function DashboardSidebarHeaderItem({
   return (
     <ListSubheader
       sx={{
-        fontSize: 12,
+        fontSize: 20,
         fontWeight: '600',
         height: mini ? 0 : 36,
         ...(hasDrawerTransitions

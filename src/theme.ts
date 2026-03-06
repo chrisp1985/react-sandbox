@@ -23,22 +23,47 @@ const theme = createTheme({
     divider: '#dbe2ef',
   },
   typography: {
-    fontFamily: 'Roboto, Arial, sans-serif',
-    h5: {
-      fontFamily: 'Roboto Slab, serif',
+    fontFamily: 'Roboto, Montserrat, Arial, sans-serif',
+    h1: {
+      fontFamily: 'Montserrat, Roboto, Arial, sans-serif',
+      fontWeight: 700,
+      fontSize: '2.8rem',
+      color: '#0B2341',
+    },
+    h2: {
+      fontFamily: 'Montserrat, Roboto, Arial, sans-serif',
       fontWeight: 700,
       fontSize: '2.2rem',
       color: '#0B2341',
     },
-    h6: {
-      fontFamily: 'Roboto Slab, serif',
+    h3: {
+      fontFamily: 'Montserrat, Roboto, Arial, sans-serif',
       fontWeight: 700,
-      fontSize: '1.3rem',
+      fontSize: '1.8rem',
+      color: '#0B2341',
+    },
+    h4: {
+      fontFamily: 'Montserrat, Roboto, Arial, sans-serif',
+      fontWeight: 700,
+      fontSize: '1.5rem',
+      color: '#0B2341',
+    },
+    h5: {
+      fontFamily: 'Montserrat, Roboto, Arial, sans-serif',
+      fontWeight: 700,
+      fontSize: '1.2rem',
+      color: '#0B2341',
+    },
+    h6: {
+      fontFamily: 'Montserrat, Roboto, Arial, sans-serif',
+      fontWeight: 700,
+      fontSize: '1rem',
       color: '#0B2341',
     },
     button: {
       textTransform: 'none',
       fontWeight: 600,
+      fontFamily: 'Montserrat, Roboto, Arial, sans-serif',
     },
   },
   shape: {

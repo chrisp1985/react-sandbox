@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { LineChart } from '@mui/x-charts/LineChart';
 import { fetchEpisodes } from "./fetchEpisodes";
+import { Typography } from '@mui/material';
 
 export const RandMRest = () => {
   const [episodes, setEpisodes] = useState<any[]>([]);
@@ -13,23 +14,33 @@ export const RandMRest = () => {
     });
   }, []);
 
-  // Prepare chart data
-  console.log('Episodes:', episodes);
-  const episodeCodes = episodes.map((ep) => ep.episode);
   const characterCounts = episodes.map((ep) => ep.characters.length);
-  const episodeNames = episodes.map((ep) => ep.name);
   const episodeIndices = episodes.map((_, idx) => idx + 1);
+  const episodeLabels = episodes.map((ep, idx) => `${idx + 1}: ${ep.name}`);
 
   return (
     <div style={{ padding: 32, textAlign: 'center' }}>
       <h1>Rick and Morty REST API</h1>
-      <p>This is the Rick and Morty Rest page.</p>
+      <Typography variant="body1" gutterBottom>This is the Rick and Morty Rest page.</Typography>
       {loading ? (
-        <p>Loading chart...</p>
+        <Typography variant="body1" gutterBottom>Loading chart...</Typography>
       ) : (
         <>
           <LineChart
-            xAxis={[{ data: episodeIndices, label: 'Episode Number', tickInterval: 1 }]}
+            xAxis={[{
+              data: episodeIndices,
+              label: 'Episode',
+              valueFormatter: (value, context) => {
+                // Always return a string for both tick and tooltip
+                if (context && context.location === 'tooltip') {
+                  const idx = value - 1;
+                  return episodeLabels[idx] ? String(episodeLabels[idx]) : String(value);
+                }
+                // For axis ticks, just show the number as string
+                return String(value);
+              },
+            }]}
+            yAxis={[{ min: 0, label: 'Characters' }]}
             series={[{ data: characterCounts, label: 'Characters per Episode' }]}
             height={400}
           />

@@ -37,6 +37,8 @@ export const FilmList = () => {
   const selectedFilm = selected ? films.find((f) => f.title === selected) ?? null : null;
 
   return (
+    <div style={{ padding: 32, textAlign: 'center' }}>
+    <h1>Film List</h1>
     <Container sx={{ py: 4 }}>
       <Paper sx={{ p: 2, mb: 3 }}>
         <Stack direction="row" spacing={2} alignItems="center">
@@ -102,5 +104,6 @@ export const FilmList = () => {
       <FilmDialog selectedFilm={selectedFilm} setSelected={setSelected} />
 
     </Container>
+    </div>
   );
 };
