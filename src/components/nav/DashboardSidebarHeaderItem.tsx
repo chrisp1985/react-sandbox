@@ -1,4 +1,5 @@
-import { ReactNode, useContext } from 'react';
+import type { ReactNode } from 'react';
+import { useContext } from 'react';
 import ListSubheader from '@mui/material/ListSubheader';
 import type {} from '@mui/material/themeCssVarsAugmentation';
 import DashboardSidebarContext from './DashboardSidebarContext';

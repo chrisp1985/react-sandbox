@@ -1,6 +1,6 @@
 
 export const fetchEpisodes = async () => {
-  let episodes = []; 
+  let episodes: any[] = [];
   let nextUrl = "https://rickandmortyapi.com/api/episode/";
   while (nextUrl) {
     console.log('Fetching episodes from:', nextUrl);

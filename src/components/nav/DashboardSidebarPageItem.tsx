@@ -1,4 +1,5 @@
-import { ReactNode, Fragment, useContext, useState, useCallback, useMemo } from 'react';
+import { Fragment, useContext, useState, useCallback, useMemo } from 'react';
+import type { ReactNode } from 'react';
 import { type Theme } from '@mui/material/styles';
 import type { SxProps } from '@mui/system';
 import Avatar from '@mui/material/Avatar';

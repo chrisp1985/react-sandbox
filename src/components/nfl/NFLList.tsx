@@ -3,7 +3,6 @@ import {
   Container,
   Grid,
   Card,
-  CardMedia,
   CardContent,
   CardActions,
   Typography,
@@ -13,7 +12,6 @@ import {
   Pagination,
   Stack,
   Paper,
-  Avatar,
   Box,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';

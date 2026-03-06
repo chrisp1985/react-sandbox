@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { LineChart } from '@mui/x-charts/LineChart';
-import { fetchEpisodes } from "./fetchEpisodes";
+import { fetchEpisodes } from "../../api/rickmortyclient";
 import { Typography } from '@mui/material';
 
 export const RandMRest = () => {
@@ -30,7 +30,7 @@ export const RandMRest = () => {
             xAxis={[{
               data: episodeIndices,
               label: 'Episode',
-              valueFormatter: (value, context) => {
+              valueFormatter: (value: number, context: { location?: string }): string => {
                 // Always return a string for both tick and tooltip
                 if (context && context.location === 'tooltip') {
                   const idx = value - 1;

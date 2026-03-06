@@ -106,13 +106,27 @@ export default function DashboardSidebar({
   const getDrawerContent = useCallback(
     (viewport: 'phone' | 'tablet' | 'desktop') => (
       <Fragment>
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', pt: 2 }}>
-          <img
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            pt: { xs: 1, md: 2 }
+          }}
+        >
+          <Box
+            component="img"
             src={mankey}
             alt="Logo"
-            style={{ width: 106, height: 106, marginBottom: 8, borderRadius: '50%', background: '#fff' }}
+            sx={{
+              width: { xs: 40, md: 100 },
+              height: { xs: 40, md: 100 },
+              borderRadius: '50%',
+              background: '#fff',
+              mb: { xs: 1, md: 2 }
+            }}
           />
         </Box>
+
         <Box
           component="nav"
           aria-label={`${viewport.charAt(0).toUpperCase()}${viewport.slice(1)}`}

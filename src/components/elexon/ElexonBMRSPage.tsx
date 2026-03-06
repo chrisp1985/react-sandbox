@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Typography } from '@mui/material';
-import { fetchUnitData } from './fetchUnitData';
-import type { ChartData } from './fetchUnitData';
+import { fetchUnitData } from '../../api/elexonclient';
+import type { ChartData } from '../../api/elexonclient';
 
 const ElexonBMRSPage = () => {
 
