@@ -2,12 +2,12 @@ import { useEffect } from 'react'
 import './App.css'
 import { FilmList } from './components/films/FilmList.tsx'
 import { Routes, Route, Navigate } from 'react-router-dom';
-import DashboardSidebar from './components/nav/DashboardSidebar.tsx';
 import { Home } from './components/home/Home.tsx';
 import { Profile } from './components/profile/Profile.tsx';
 import { NFLSearch } from './components/nfl/NFLSearch.tsx';
 import { RandMRest } from './components/randmrest/RandMRest.tsx';
 import ElexonBMRSPage from './components/elexon/ElexonBMRSPage';
+import MuiNavBar from './nav/muinavbar.tsx'; 
 
 function App() {
   useEffect(() => {
@@ -16,13 +16,11 @@ function App() {
 
   return (
     <div>
-      <DashboardSidebar setExpanded={(expanded) => console.log('Sidebar expanded:', expanded)} />
+      <MuiNavBar />
       <main
         style={{
-          flex: 1,
           background: 'linear-gradient(135deg, #e3ecfa 0%, #f5f7fa 100%)',
           minHeight: '100vh',
-          padding: '24px 16px',
         }}
       >
         <Routes>
