@@ -19,7 +19,7 @@ function App() {
       <MuiNavBar />
       <main
         style={{
-          background: 'linear-gradient(135deg, #e3ecfa 0%, #f5f7fa 100%)',
+          background: 'linear-gradient(180deg, #120131 1%, #f6f6f7 10%)',
           minHeight: '100vh',
         }}
       >

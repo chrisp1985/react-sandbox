@@ -10,5 +10,6 @@ All of the nav components have been taken from MUI's examples.
 ### Films
 
 ### NFL
+The request to the NFL API requires a proxy.
 
 ### Marvel

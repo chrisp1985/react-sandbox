@@ -29,7 +29,7 @@ export const NFLSearch = () => {
         placeholder="Enter API Key"
         value={apiKey}
         onChange={e => setApiKey(e.target.value)}
-        style={{ width: 300, padding: 8, marginRight: 8 }}
+        style={{ width: 300, padding: 8, marginRight: 8, backgroundColor: "#f0f0f0", border: "1px solid #ccc", borderRadius: 4 }}
       />
       <button onClick={handleFetch} disabled={!apiKey || loading} style={{ padding: 8 }}>
         {loading ? "Loading..." : "Fetch Players"}

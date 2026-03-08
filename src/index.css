@@ -1,9 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+body {  font-family: 'Roboto', sans-serif;
+  /* color: white; */
+}   
+
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5.5em;
+  line-height: 1.2;
+}   
+
+p, li {
+  line-height: 1.6;
+  margin-bottom: 1em;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.75em;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color-scheme: light dark;
-  color: unset;
+  color: #120131;
   background-color: unset;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -24,11 +44,6 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
 }
 
 button {

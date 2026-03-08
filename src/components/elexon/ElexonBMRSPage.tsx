@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Typography } from '@mui/material';
+import { Typography, Card, CardContent } from '@mui/material';
 import { fetchUnitData } from '../../api/elexonclient';
 import type { ChartData } from '../../api/elexonclient';
 
@@ -28,6 +28,8 @@ const ElexonBMRSPage = () => {
       {chartDate && (
         <Typography variant="h6" gutterBottom>Settlement Date: {chartDate}</Typography>
       )}
+            <Card sx={{ maxWidth: '80%', mx: 'auto', mt: 4, backgroundColor: '#f9f9f9', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+        <CardContent>
       <ResponsiveContainer width="100%" height={500}>
         <BarChart data={chartData}>
           <XAxis
@@ -45,6 +47,8 @@ const ElexonBMRSPage = () => {
           ))}
         </BarChart>
       </ResponsiveContainer>
+            </CardContent>
+        </Card>
     </div>
   );
 };
