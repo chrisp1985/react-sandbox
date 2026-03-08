@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { LineChart } from '@mui/x-charts/LineChart';
 import { fetchEpisodes } from "../../api/rickmortyclient";
-import { Typography } from '@mui/material';
+import { Typography, Card, CardContent } from '@mui/material';
 
 export const RandMRest = () => {
   const [episodes, setEpisodes] = useState<any[]>([]);
@@ -21,22 +21,21 @@ export const RandMRest = () => {
   return (
     <div style={{ padding: 32, textAlign: 'center' }}>
       <h1>Rick and Morty REST API</h1>
-      <Typography variant="body1" gutterBottom>This is the Rick and Morty Rest page.</Typography>
-      {loading ? (
-        <Typography variant="body1" gutterBottom>Loading chart...</Typography>
-      ) : (
+      <p style={{ textAlign: 'left' }}>This is the Rick and Morty Rest page.</p>
+      {loading ? (<p>Loading chart...</p>) 
+      : (
         <>
+              <Card sx={{ maxWidth: '80%', mx: 'auto', mt: 6, backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+                <CardContent>
           <LineChart
             xAxis={[{
               data: episodeIndices,
               label: 'Episode',
               valueFormatter: (value: number, context: { location?: string }): string => {
-                // Always return a string for both tick and tooltip
                 if (context && context.location === 'tooltip') {
                   const idx = value - 1;
                   return episodeLabels[idx] ? String(episodeLabels[idx]) : String(value);
                 }
-                // For axis ticks, just show the number as string
                 return String(value);
               },
             }]}
@@ -44,6 +43,8 @@ export const RandMRest = () => {
             series={[{ data: characterCounts, label: 'Characters per Episode' }]}
             height={400}
           />
+          </CardContent>
+          </Card>
         </>
       )}
     </div>
