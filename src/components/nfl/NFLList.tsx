@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { NFLDialog } from './NFLDialog.tsx';
-import { NFL_TEAM_LOGOS, NFL_LOGO } from './teamLogos';
+import { NFL_TEAM_LOGOS, NFL_LOGO } from './nflContent.ts';
 
 export const NFLList = ({ players }: { players: any[] }) => {
   const [q, setQ] = useState('');
@@ -85,22 +85,12 @@ export const NFLList = ({ players }: { players: any[] }) => {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    backgroundColor: 'rgba(255,255,255,0.7)', // adjust opacity as needed
+                    backgroundColor: 'rgba(255,255,255,0.7)',
                     zIndex: 1,
                   }}
                 />
                 <CardContent sx={{ flexGrow: 1, position: 'relative', zIndex: 2 }}>
-                  <Typography
-                    variant="h5"
-                    gutterBottom
-                    sx={{
-                      fontFamily: 'Roboto Slab, serif',
-                      fontWeight: 700,
-                      color: '#222',
-                      fontSize: '1.6rem',
-                      letterSpacing: 0.5,
-                    }}
-                  >
+                  <Typography variant="h4" sx={{ fontWeight: 700, color: '#222', textAlign: 'center' }}>
                     {player.Name}
                   </Typography>
                   <Typography

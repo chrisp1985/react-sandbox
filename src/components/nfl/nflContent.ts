@@ -36,3 +36,11 @@ export const NFL_TEAM_LOGOS: Record<string, string> = {
 
 // NFL logo fallback
 export const NFL_LOGO = 'https://static.www.nfl.com/image/upload/v1554321393/league/nvfr7ogywskqrfaiu38m.svg';
+
+export const nflContent = {
+  title: "NFL Player Search",
+  line1: "This is a search function for NFL players using the SportsData.io API. Enter your API key to fetch player data and view details.",
+  line2: "The player list supports pagination and search by name. Click on a player to see more details in a dialog, including their team, college, position, experience, and height.",
+  line3: "Team logos are displayed where available, with a fallback NFL logo for teams without a specific logo.",
+  line4: "This uses an external API, pulling data and images in real time, so results may vary based on API response and availability."
+};

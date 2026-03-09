@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
-import { LineChart } from '@mui/x-charts/LineChart';
+import { BarChart } from '@mui/x-charts/BarChart';
 import { fetchEpisodes } from "../../api/rickmortyclient";
-import { Typography, Card, CardContent } from '@mui/material';
+import { Card, CardContent, Box } from '@mui/material';
+import { Title } from "../common/Title";
+import { type Episode } from "./Episode";
+import { CharactersPerSeason } from "./CharactersPerSeason";
+import { CharactersPerEpisode } from "./CharactersPerEpisode";
+import { EpisodesPerSeason } from "./EpisodesPerSeason";
 
 export const RandMRest = () => {
-  const [episodes, setEpisodes] = useState<any[]>([]);
+  const [episodes, setEpisodes] = useState<Episode[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -14,39 +19,26 @@ export const RandMRest = () => {
     });
   }, []);
 
-  const characterCounts = episodes.map((ep) => ep.characters.length);
-  const episodeIndices = episodes.map((_, idx) => idx + 1);
-  const episodeLabels = episodes.map((ep, idx) => `${idx + 1}: ${ep.name}`);
-
   return (
-    <div style={{ padding: 32, textAlign: 'center' }}>
-      <h1>Rick and Morty REST API</h1>
-      <p style={{ textAlign: 'left' }}>This is the Rick and Morty Rest page.</p>
-      {loading ? (<p>Loading chart...</p>) 
+    <>
+    <Title text="Rick and Morty Rest API Visualization" />
+    <Box sx={{ maxWidth: '80%', mx: 'auto', mt: 4, p: 0 }}>
+                  <Card sx={{ maxWidth: '100%', mx: 'auto', mt: 6, backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+              <CardContent>
+      <p style={{ textAlign: 'left' }}>This is the Rick and Morty Rest page. It fetches episode data from the Rick and Morty API and visualizes the number of characters in each episode using a line chart. The x-axis shows the episode number and name (in tooltips), while the y-axis shows the count of characters appearing in that episode.</p>
+      <p style={{ textAlign: 'left' }}>Data is fetched in real time, so results may vary based on API response and availability. Additional charts show the average number of characters per episode by season, and the total number of episodes per season.</p>
+      <p style={{ textAlign: 'left' }}>This page aims to use MUI XCharts to present the data. MUI XCharts can be found <a href="https://mui.com/x/react-charts">here</a> and can be used to show charts in many different ways.</p>
+      </CardContent>
+      </Card>
+      {loading ? (<p>Loading chart...</p> ) 
       : (
         <>
-              <Card sx={{ maxWidth: '80%', mx: 'auto', mt: 6, backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                <CardContent>
-          <LineChart
-            xAxis={[{
-              data: episodeIndices,
-              label: 'Episode',
-              valueFormatter: (value: number, context: { location?: string }): string => {
-                if (context && context.location === 'tooltip') {
-                  const idx = value - 1;
-                  return episodeLabels[idx] ? String(episodeLabels[idx]) : String(value);
-                }
-                return String(value);
-              },
-            }]}
-            yAxis={[{ min: 0, label: 'Characters' }]}
-            series={[{ data: characterCounts, label: 'Characters per Episode' }]}
-            height={400}
-          />
-          </CardContent>
-          </Card>
+          <CharactersPerEpisode episodes={episodes} />
+          <EpisodesPerSeason episodes={episodes} />
+          <CharactersPerSeason episodes={episodes} />
         </>
       )}
-    </div>
+      </Box>
+      </>
   );
 };

@@ -53,16 +53,16 @@ const MuiNavBar = () => {
   
   return (
     <AppBar position="static">
-      <Toolbar sx={{ backgroundColor: "#120131" }}>
+      <Toolbar sx={{ backgroundColor: "#120131", minHeight: { xs: 70, md: 100 } }}>
         <IconButton edge="start" color="inherit" sx={{ mr: 2 }}>
-          <DonutSmallIcon sx={{ color: "yellow"}}/>
+          <DonutSmallIcon sx={{ color: "primary.main"}}/>
         </IconButton>
-        <Typography variant="h6" color="white">
+        <Typography variant="h4" color="white">
           React Playground
         </Typography>
         {isMobile ? (
         <>
-          <IconButton color="inherit" onClick={handleMobileClick} sx={{ marginLeft: "auto" }}>
+          <IconButton color="primary" onClick={handleMobileClick} sx={{ marginLeft: "auto" }}>
             <MenuIcon/>
           </IconButton>
 
@@ -77,9 +77,9 @@ const MuiNavBar = () => {
         </>
       ) : (
         <Stack direction="row" spacing={2} sx={{ marginLeft: "auto" }}>
-          <Button color="inherit" onClick={() => navigate("/")}>HOME</Button>
-          <Button color="inherit" onClick={() => navigate("/profile")}>PROFILE</Button>
-          <Button color="inherit" onClick={handleProjectsClick}>PROJECTS</Button>
+          <Button onClick={() => navigate("/")}>HOME</Button>
+          <Button onClick={() => navigate("/profile")}>PROFILE</Button>
+          <Button onClick={handleProjectsClick}>PROJECTS</Button>
         </Stack>
       )}
         <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { getPlayersByAvailable } from "../../api/nflClient";
 import { NFLList } from "./NFLList";
+import { Card, CardContent, Box } from '@mui/material';
+import { Title } from "../common/Title";
+import { nflContent } from "./nflContent";
 
 export const NFLSearch = () => {
   const [apiKey, setApiKey] = useState("");
@@ -22,21 +25,30 @@ export const NFLSearch = () => {
   };
 
   return (
-    <div style={{ padding: 32, textAlign: 'center' }}>
-      <h1>NFL Player Search</h1>
-      <input
-        type="text"
-        placeholder="Enter API Key"
-        value={apiKey}
-        onChange={e => setApiKey(e.target.value)}
-        style={{ width: 300, padding: 8, marginRight: 8, backgroundColor: "#f0f0f0", border: "1px solid #ccc", borderRadius: 4 }}
-      />
-      <button onClick={handleFetch} disabled={!apiKey || loading} style={{ padding: 8 }}>
-        {loading ? "Loading..." : "Fetch Players"}
-      </button>
-      <h3>{players.length > 0 ? "Players Fetched!" : "Click button to fetch players."}</h3>
-      {error && <div style={{ color: 'red', marginTop: 16 }}>{error}</div>}
-    <NFLList players={players} />
-    </div>
+    <>
+      <Title text={nflContent.title} />
+      <Box sx={{ maxWidth: '80%', mx: 'auto', mt: 4, p: 0 }}>
+        <Card sx={{ maxWidth: '100%', mx: 'auto', mt: 6, backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+          <CardContent>
+            <p style={{ textAlign: 'left' }}>{nflContent.line1}</p>
+            <p style={{ textAlign: 'left' }}>{nflContent.line2}</p>
+            <p style={{ textAlign: 'left' }}>{nflContent.line3}</p>
+            <p style={{ textAlign: 'left' }}>{nflContent.line4}</p>
+          </CardContent>
+        </Card>
+        <Card sx={{ maxWidth: '100%', mx: 'auto', mt: 6, backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+          <CardContent>
+            <p>Get your API Key from <a href="https://sportsdata.io/developers/api-documentation/nfl" target="_blank" rel="noopener noreferrer">SportsData.io NFL API Documentation</a></p>
+            <input type="text"  placeholder="Enter API Key" value={apiKey} onChange={e => setApiKey(e.target.value)} style={{ width: 300, padding: 8, marginRight: 8, backgroundColor: "#f0f0f0", border: "1px solid #ccc", borderRadius: 4 }}/>
+            <button onClick={handleFetch} disabled={!apiKey || loading} style={{ padding: 8 }}>
+              {loading ? "Loading..." : "Fetch Players"}
+            </button>
+            <h3>{players.length > 0 ? "Players Fetched!" : "Click button to fetch players."}</h3>
+            {error && <div style={{ color: 'red', marginTop: 16 }}>{error}</div>}
+          <NFLList players={players} />
+          </CardContent>
+        </Card>
+      </Box>
+    </>
   );
 };
