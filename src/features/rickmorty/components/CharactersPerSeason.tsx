@@ -38,29 +38,19 @@ export const CharactersPerSeason = ({ episodes }: { episodes: Episode[] }) => {
   );
 
   return (
-    <Card
-      sx={{
-        maxWidth: "100%",
-        mx: "auto",
-        mt: 6,
-        backgroundColor: "#ffffff",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-      }}
-    >
-      <CardContent>
-        <h3>Average Characters per Episode by Season</h3>
-        <LineChart
-          xAxis={[{ scaleType: "point", data: seasonLabels }]}
-          series={[
-            {
-              data: avgCharacters,
-              label: "Average Characters",
-              showMark: true,
-            },
-          ]}
-          height={300}
-        />
-      </CardContent>
-    </Card>
+    <>
+      <h3>Average Characters per Episode by Season</h3>
+      <LineChart
+        xAxis={[{ scaleType: "point", data: seasonLabels }]}
+        series={[
+          {
+            data: avgCharacters,
+            label: "Average Characters",
+            showMark: true,
+          },
+        ]}
+        height={300}
+      />
+    </>
   );
 };

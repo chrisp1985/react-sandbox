@@ -15,9 +15,7 @@ export const Title = ({ text }: { text: string }) => {
           justifyContent: "center"
         }}>
         {/* Overlay */}
-        <Box sx={{ position: "absolute", inset: 0, backgroundColor: "rgba(0, 0, 0, 0.78)" }} />
-        {/* Content */}
-        {/* <Typography variant="h1" sx={{ position: "relative", color: "white", textAlign: "center", maxWidth: "80%", mx: "auto" }}> */}
+        <Box sx={{ position: "absolute", inset: 0, backgroundColor: "rgba(18, 1, 49, 0.78)" }} /> #120131
         <Typography variant="h1"
   sx={{
     position: "relative",

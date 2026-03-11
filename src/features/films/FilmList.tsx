@@ -3,7 +3,9 @@ import { Grid, Card, CardMedia, CardContent, CardActions, Typography, Button, Te
 import SearchIcon from '@mui/icons-material/Search';
 import { films } from './FilmList.ts';
 import { FilmDialog } from './FilmDialog.tsx';
-import { Title } from '../common/Title.tsx';
+import { Title } from '../../components/ui/Title.tsx';
+import { Panel } from '../../components/ui/Panel.tsx';
+import { CustomCard } from '../../components/ui/CustomCard.tsx';
 
 export const FilmList = () => {
   const [q, setQ] = useState('');
@@ -24,38 +26,35 @@ export const FilmList = () => {
   return (
     <>
     <Title text="Film List" />
-    <Box sx={{ maxWidth: '80%', mx: 'auto', mt: 4, p: 0 }}>
-      <Card sx={{ maxWidth: '100%', mx: 'auto', mt: 6, backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-        <CardContent>
+    <Panel colour = "primary">
+      <CustomCard>
           <p style={{ textAlign: 'left' }}>This is a film list page using Material UI components. It displays a collection of films with their titles, descriptions, and images.</p>
           <p style={{ textAlign: 'left' }}>The list supports pagination and search by title. Click on a film to see more details in a dialog.</p>
           <p style={{ textAlign: 'left' }}>Data is static, but images are loaded in real time, so results may vary based on image availability.</p>
-        </CardContent>
-      </Card>
-      <br />
-      <Paper sx={{ p: 2, mb: 3, maxWidth: '100%', mx: 'auto', backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-        <Stack direction="row" spacing={2} alignItems="center">
-          <TextField value={q} onChange={(e) => {
-              setQ(e.target.value);
-              setPage(1);
-            }}
-            placeholder="Search films"
-            size="small"
-            fullWidth
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-            aria-label="Search films"
-          />
-        </Stack>
-      </Paper>
-
-      <Card sx={{ maxWidth: '100%', mx: 'auto', mt: 6, backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-        <CardContent>
+        </CustomCard>
+      </Panel>
+      <Panel colour = "secondary">
+        <CustomCard>
+          <Paper sx={{ p: 2, mb: 3, maxWidth: '100%', mx: 'auto', backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
+            <Stack direction="row" spacing={2} alignItems="center">
+              <TextField value={q} onChange={(e) => {
+                  setQ(e.target.value);
+                  setPage(1);
+                }}
+                placeholder="Search films"
+                size="small"
+                fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+                aria-label="Search films"
+              />
+            </Stack>
+          </Paper>
           <Grid container spacing={3} alignItems="stretch">
             {pageItems.map((film) => (
               <Grid key={film.title}>
@@ -98,10 +97,8 @@ export const FilmList = () => {
       </Stack>
 
       <FilmDialog selectedFilm={selectedFilm} setSelected={setSelected} />
-
-      </CardContent>
-      </Card>
-    </Box>
+      </CustomCard>
+      </Panel>
     </>
   );
 };

@@ -1,6 +1,8 @@
 import { Card, CardContent, Box, Container } from "@mui/material";
 import { homeContent } from "./homeContent";
-import { Title } from "../common/Title";
+import { Title } from "../../components/ui/Title";
+import { Panel } from "../../components/ui/Panel";
+import { CustomCard } from "../../components/ui/CustomCard";
 
 const cardSx = {
   maxWidth: '90%', 
@@ -13,24 +15,15 @@ export const Home = () => {
   return (
 <>
 <Title text="React Playground" />
-<Box sx={{ backgroundColor: "primary.main", py: 5 }}>
-  <Box sx={{ maxWidth: '100%', mx: 'auto', mt: 4, p: 0 }}>
-    <Container maxWidth={false}>
-      <Card sx={cardSx}>
-        <CardContent>
+<Panel colour="primary">
+      <CustomCard>
           <p>{homeContent.welcome.line2}</p>
           <p>{homeContent.welcome.line3}</p>
           <p>{homeContent.welcome.line4}</p>
-        </CardContent>
-      </Card>
-    </Container>
-  </Box>
-</Box>
-<Box sx={{ backgroundColor: "secondary.main", py: 5 }}>
-  <Box sx={{ maxWidth: '100%', mx: 'auto', mt: 4, p: 0 }}>
-    <Container maxWidth={false}>
-      <Card sx={cardSx}>
-        <CardContent>
+      </CustomCard>
+  </Panel>
+  <Panel colour="secondary">
+      <CustomCard>
           <h2>{homeContent.projects.line1}</h2>
           <p>{homeContent.projects.line2}</p>
           <ul>
@@ -38,10 +31,7 @@ export const Home = () => {
               <li key={index}>{item}</li>
             ))}
           </ul>
-        </CardContent>
-      </Card>
-    </Container>
-  </Box>
-</Box>
+      </CustomCard>
+  </Panel>
 </>
 );};

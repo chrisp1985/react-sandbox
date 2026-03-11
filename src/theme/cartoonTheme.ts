@@ -6,10 +6,10 @@ export const cartoonTheme = createTheme({
       main: '#FF7A45'
     },
     secondary: {
-      main: '#36CFC9'
+      main: '#2f1077'
     },
     background: {
-      default: '#FFF7E6'
+      default: '#120131',
     }
   },
 

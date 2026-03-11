@@ -15,14 +15,12 @@ export const EpisodesPerSeason = ({ episodes }: { episodes: Episode[] }) => {
     const seasonCounts = Object.values(episodesPerSeason);
 
     return(
-        <Card sx={{ maxWidth: '100%', mx: 'auto', mt: 6, backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-        <CardContent>
+        <>
         <h3>Episodes per Season</h3> 
         <BarChart
             xAxis={[{ scaleType: "band", data: seasonLabels }]}
             series={[{ data: seasonCounts, label: "Episodes" }]}
             height={300}/>
-        </CardContent>
-        </Card>
+        </>
     )
 };
