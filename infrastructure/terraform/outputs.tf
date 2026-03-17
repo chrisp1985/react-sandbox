@@ -9,7 +9,3 @@ output "cloudfront_distribution_id" {
 output "cloudfront_domain_name" {
   value = aws_cloudfront_distribution.vite_site.domain_name
 }
-
-output "github_actions_role_arn" {
-  value = aws_iam_role.github_actions_deploy.arn
-}
