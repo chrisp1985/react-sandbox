@@ -15,7 +15,7 @@ jobs:
 
     env:
       AWS_REGION: eu-west-2
-      TF_WORKING_DIR: ./terraform
+      TF_WORKING_DIR: ./infrastructure/terraform
       ROLE_ARN: arn:aws:iam::195571588534:role/deploy-react-sandbox-vite
 
     steps:
