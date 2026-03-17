@@ -1,0 +1,5 @@
+github_org     = "chrisp1985"
+github_repo    = "react-sandbox"
+aws_region     = "eu-west-2"
+aws_account_id = "195571588534"
+bucket_name    = "chrisp1985-react-sandbox-vite-prod"
