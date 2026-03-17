@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { Title } from "../../components/ui/Title";
 import { Panel } from "../../components/ui/Panel";
 import { CustomCard } from "../../components/ui/CustomCard";

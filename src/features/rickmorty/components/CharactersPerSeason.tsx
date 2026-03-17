@@ -1,5 +1,4 @@
 import { type Episode } from "./Episode";
-import { Card, CardContent } from "@mui/material";
 import { LineChart } from "@mui/x-charts/LineChart";
 
 export const CharactersPerSeason = ({ episodes }: { episodes: Episode[] }) => {

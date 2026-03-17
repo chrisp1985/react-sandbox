@@ -1,15 +1,7 @@
-import { Card, CardContent, Box, Container } from "@mui/material";
 import { homeContent } from "./homeContent";
 import { Title } from "../../components/ui/Title";
 import { Panel } from "../../components/ui/Panel";
 import { CustomCard } from "../../components/ui/CustomCard";
-
-const cardSx = {
-  maxWidth: '90%', 
-  mx: 'auto', 
-  backgroundColor: '#f9f9f9', 
-  boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-};  
 
 export const Home = () => {
   return (

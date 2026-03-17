@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Grid, Card, CardMedia, CardContent, CardActions, Typography, Button, TextField, InputAdornment, Pagination, Stack, Paper, Box, } from '@mui/material';
+import { Grid, Card, CardMedia, CardContent, CardActions, Typography, Button, TextField, InputAdornment, Pagination, Stack, Paper, } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { films } from './FilmList.ts';
 import { FilmDialog } from './FilmDialog.tsx';

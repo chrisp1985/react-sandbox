@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { getPlayersByAvailable } from "./api/nflClient";
 import { NFLList } from "./NFLList";
-import { Card, CardContent, Box } from '@mui/material';
 import { Title } from "../../components/ui/Title";
 import { nflContent } from "./nflContent";
 import { Panel } from "../../components/ui/Panel";
