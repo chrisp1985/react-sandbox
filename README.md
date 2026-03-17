@@ -13,3 +13,7 @@ All of the nav components have been taken from MUI's examples.
 The request to the NFL API requires a proxy.
 
 ### Marvel
+
+
+## Terraform
+Plan and Apply of terraform should be executed manually, not as part of pipelines.
