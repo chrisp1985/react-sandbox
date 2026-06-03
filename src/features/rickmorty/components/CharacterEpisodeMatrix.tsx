@@ -101,7 +101,7 @@ export const CharacterEpisodeMatrix = ({ episodes }: { episodes: Episode[] }) =>
                   >
                     {char.name}
                   </td>
-                  {seasons.flatMap(({ episodes: eps, color }, si) =>
+                  {seasons.flatMap(({ episodes: eps, color }) =>
                     eps.map((ep, ei) => (
                       <td
                         key={ep.id}

@@ -132,7 +132,7 @@ export const Profile = () => {
         <Box px={2} py={1}>
           <Grid container spacing={3}>
             {projects.map((project) => (
-              <Grid item xs={12} sm={6} md={4} key={project.title}>
+              <Grid size={{ xs: 12, sm: 6, md: 4 }} key={project.title}>
                 <ProjectCard {...project} />
               </Grid>
             ))}
