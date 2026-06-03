@@ -19,7 +19,7 @@ export const FilmList = () => {
   }, [q]);
 
   const pageCount = Math.max(1, Math.ceil(filtered.length / perPage));
-  const pageItems = filtered.slice((page - 1) * perPage, page * perPage);
+  const displayItems = filtered.slice((page - 1) * perPage, page * perPage);
 
   const selectedFilm = selected ? films.find((f) => f.title === selected) ?? null : null;
 
@@ -37,28 +37,29 @@ export const FilmList = () => {
         <CustomCard>
           <Paper sx={{ p: 2, mb: 3, maxWidth: '100%', mx: 'auto', backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
             <Stack direction="row" spacing={2} alignItems="center">
-              <TextField value={q} onChange={(e) => {
-                  setQ(e.target.value);
-                  setPage(1);
-                }}
+              <TextField
+                value={q}
+                onChange={(e) => { setQ(e.target.value); setPage(1); }}
                 placeholder="Search films"
                 size="small"
                 fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon />
+                      </InputAdornment>
+                    ),
+                  },
                 }}
                 aria-label="Search films"
               />
             </Stack>
           </Paper>
-          <Grid container spacing={3} alignItems="stretch">
-            {pageItems.map((film) => (
-              <Grid key={film.title}>
-                <Card sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+          <Grid container spacing={3}>
+            {displayItems.map((film) => (
+              <Grid key={film.title} size={{ xs: 12, sm: 6, md: 3 }} sx={{ display: 'flex' }}>
+                <Card sx={{ width: '100%', display: "flex", flexDirection: "column" }}>
                   
                   <CardMedia component="img" image={film.image} alt={film.title} sx={{ height: 180, objectFit: "cover" }} />
 

@@ -1,22 +1,33 @@
-const API_URL = 'https://data.elexon.co.uk/bmrs/api/v1/balancing/acceptances/all/latest';
+const PERIOD_URL = (date: string, period: number) =>
+  `https://data.elexon.co.uk/bmrs/api/v1/balancing/settlement/acceptances/all/${date}/${period}`;
 
-export interface Acceptance {
+export interface SettlementAcceptance {
   settlementDate: string;
-  settlementPeriodFrom: number;
-  settlementPeriodTo: number;
+  settlementPeriod: number;
+  bmUnit: string;
   nationalGridBmUnit: string;
-  levelFrom: number;
-  levelTo: number;
+  acceptanceNumber: number;
+  acceptanceTime: string;
+  bidPrice: number;
+  offerPrice: number;
+  bidOfferPairId: number;
 }
 
-export interface ApiResponse {
-  metadata: any;
-  data: Acceptance[];
-}
-
-export interface ChartData {
+export interface PeriodSummary {
   period: string;
-  [unit: string]: number | string;
+  avgOfferPrice: number;
+  avgBidPrice: number;
+  acceptanceCount: number;
+  activeUnits: number;
+}
+
+export interface UnitActivity {
+  unit: string;
+  acceptanceCount: number;
+}
+
+function toDateString(date: Date) {
+  return date.toISOString().slice(0, 10);
 }
 
 function getPeriodLabel(period: number) {
@@ -25,40 +36,53 @@ function getPeriodLabel(period: number) {
   return `${hour.toString().padStart(2, '0')}:${min}`;
 }
 
-export async function fetchUnitData(): Promise<{
-  chartRows: ChartData[];
-  units: string[];
-  chartDate: string;
+export async function fetchFullDayData(date?: Date): Promise<{
+  periodSummaries: PeriodSummary[];
+  unitActivities: UnitActivity[];
+  settlementDate: string;
 }> {
-  const res = await fetch(API_URL);
-  if (!res.ok) throw new Error('Network response was not ok');
-  const data: ApiResponse = await res.json();
-  const periodMap: Record<string, Record<string, number>> = {};
-  const allUnits = new Set<string>();
-  data.data.forEach((item) => {
-    for (let period = item.settlementPeriodFrom; period <= item.settlementPeriodTo; period++) {
-      const periodKey = `${item.settlementDate} P${period}`;
-      if (!periodMap[periodKey]) periodMap[periodKey] = {};
-      allUnits.add(item.nationalGridBmUnit);
-      const contribution = Math.abs(item.levelTo - item.levelFrom);
-      periodMap[periodKey][item.nationalGridBmUnit] =
-        (periodMap[periodKey][item.nationalGridBmUnit] || 0) + contribution;
-    }
+  const target = date ?? (() => { const d = new Date(); d.setDate(d.getDate() - 1); return d; })();
+  const dateStr = toDateString(target);
+
+  const results = await Promise.allSettled(
+    Array.from({ length: 48 }, (_, i) =>
+      fetch(PERIOD_URL(dateStr, i + 1))
+        .then((r) => (r.ok ? r.json() : { data: [] }))
+        .then((json) => (json.data ?? []) as SettlementAcceptance[])
+    )
+  );
+
+  const all: SettlementAcceptance[] = results.flatMap((r) =>
+    r.status === 'fulfilled' ? r.value : []
+  );
+
+  const byPeriod: Record<number, SettlementAcceptance[]> = {};
+  all.forEach((acc) => {
+    (byPeriod[acc.settlementPeriod] ??= []).push(acc);
   });
-  let chartDateLocal = '';
-  const chartRows: ChartData[] = Object.entries(periodMap).map(([periodKey, unitMap]) => {
-    const [date, periodStr] = periodKey.split(' ');
-    chartDateLocal = date;
-    const periodNum = parseInt(periodStr.slice(1), 10);
-    return {
-      period: getPeriodLabel(periodNum),
-      ...unitMap,
-    };
-  });
-  chartRows.sort((a, b) => (a.period > b.period ? 1 : -1));
-  return {
-    chartRows,
-    units: Array.from(allUnits),
-    chartDate: chartDateLocal,
-  };
+
+  const periodSummaries: PeriodSummary[] = Array.from({ length: 48 }, (_, i) => i + 1)
+    .filter((p) => byPeriod[p]?.length)
+    .map((p) => {
+      const items = byPeriod[p];
+      const avg = (key: 'offerPrice' | 'bidPrice') => {
+        const vals = items.map((a) => a[key]).filter((v) => v != null);
+        return vals.length ? parseFloat((vals.reduce((s, v) => s + v, 0) / vals.length).toFixed(2)) : 0;
+      };
+      return {
+        period: getPeriodLabel(p),
+        avgOfferPrice: avg('offerPrice'),
+        avgBidPrice: avg('bidPrice'),
+        acceptanceCount: items.length,
+        activeUnits: new Set(items.map((a) => a.nationalGridBmUnit)).size,
+      };
+    });
+
+  const unitMap: Record<string, number> = {};
+  all.forEach((acc) => { unitMap[acc.nationalGridBmUnit] = (unitMap[acc.nationalGridBmUnit] ?? 0) + 1; });
+  const unitActivities: UnitActivity[] = Object.entries(unitMap)
+    .map(([unit, acceptanceCount]) => ({ unit, acceptanceCount }))
+    .sort((a, b) => b.acceptanceCount - a.acceptanceCount);
+
+  return { periodSummaries, unitActivities, settlementDate: dateStr };
 }

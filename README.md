@@ -10,6 +10,8 @@ I used GitHub CoPilot for some areas of the project but found that more often th
 
 A more palatable solution was to use ChatGPT to ask questions, understand the answers and apply the suggested code to the codebase myself. From a skilling up point of view, I obviously understood my codebase far better and had more control over it than when it was applied automatically for me. GitHub CoPilot would frequently get CSS updates completely wrong, stretching windows off the edge of the screen or creating Typescript functions that consistently passed through any[] as the type.
 
+I then moved onto Claude Code which made things much more straightforward. Claude Code felt more intuitive and provided much better control over what I was adding to the codebase. The results always seemed far more production-like as well.
+
 The sections below detail the work involved. Some was fairly basic, some a bit trickier.
 
 ## MUI Nav
