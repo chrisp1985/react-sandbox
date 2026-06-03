@@ -5,7 +5,7 @@ import { MyRoutes } from './MyRoutes.tsx';
 function App() {
 
   return (
-    <div>
+    <div style={{ width: '100%', overflowX: 'hidden' }}>
       <MuiNavBar />
       <main style={{ minHeight: '100vh',  }} >
         <MyRoutes />

@@ -13,7 +13,7 @@ export const Title = ({ text }: { text: string }) => {
           backgroundImage: `url(${wilbur})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          height: isMobile ? 850 : 500,
+          height: isMobile ? 300 : 500,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",

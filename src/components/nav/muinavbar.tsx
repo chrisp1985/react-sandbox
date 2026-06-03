@@ -68,7 +68,7 @@ const MuiNavBar = () => {
 
           <Menu anchorEl={mobileAnchor} open={mobileOpen} onClose={handleMobileClose}>
             <MenuItem sx={menuItemStyle} onClick={() => goTo("/")}>Home</MenuItem>
-            <MenuItem sx={menuItemStyle} onClick={() => goTo("/profile")}>Profile</MenuItem>
+            <MenuItem sx={menuItemStyle} onClick={() => goTo("/profile")}>Projects</MenuItem>
             <MenuItem sx={menuItemStyle} onClick={() => goTo("/projects/films")}>Films</MenuItem>
             <MenuItem sx={menuItemStyle} onClick={() => goTo("/projects/nfl")}>NFL</MenuItem>
             <MenuItem sx={menuItemStyle} onClick={() => goTo("/projects/randmrest")}>Rick & Morty</MenuItem>
@@ -78,8 +78,8 @@ const MuiNavBar = () => {
       ) : (
         <Stack direction="row" spacing={2} sx={{ marginLeft: "auto" }}>
           <Button onClick={() => navigate("/")}>HOME</Button>
-          <Button onClick={() => navigate("/profile")}>PROFILE</Button>
-          <Button onClick={handleProjectsClick}>PROJECTS</Button>
+          <Button onClick={() => navigate("/profile")}>PROJECTS</Button>
+          <Button onClick={handleProjectsClick}>PLAYGROUND</Button>
         </Stack>
       )}
         <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>

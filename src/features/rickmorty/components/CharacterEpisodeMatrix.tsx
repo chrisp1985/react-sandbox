@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useMediaQuery, useTheme } from '@mui/material';
 import { type Episode } from './Episode';
 
 interface Character {
@@ -12,6 +13,8 @@ const SEASON_COLORS = ['#42a5f5', '#66bb6a', '#ef5350', '#ab47bc', '#ff7043', '#
 
 export const CharacterEpisodeMatrix = ({ episodes }: { episodes: Episode[] }) => {
   const [characters, setCharacters] = useState<Character[]>([]);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     const countMap: Record<number, number> = {};
@@ -51,22 +54,106 @@ export const CharacterEpisodeMatrix = ({ episodes }: { episodes: Episode[] }) =>
   });
   const seasons = Object.entries(seasonMap)
     .sort(([a], [b]) => a.localeCompare(b))
-    .map(([key, eps], idx) => ({ label: `S${parseInt(key)}`, episodes: eps, color: SEASON_COLORS[idx % SEASON_COLORS.length] }));
+    .map(([key, eps], idx) => ({
+      label: `S${parseInt(key)}`,
+      episodes: eps,
+      color: SEASON_COLORS[idx % SEASON_COLORS.length],
+    }));
 
-  const charIdSet = (char: Character) => new Set(
-    episodes.flatMap((ep) =>
-      ep.characters.filter((url) => charId(url) === char.id).map(() => ep.id)
-    )
-  );
+  const charEpisodeIds = (char: Character) =>
+    new Set(
+      episodes.flatMap((ep) =>
+        ep.characters.filter((url) => charId(url) === char.id).map(() => ep.id)
+      )
+    );
+
+  const charAppearsInSeason = (char: Character, seasonEps: Episode[]) =>
+    seasonEps.some((ep) =>
+      ep.characters.some((url) => charId(url) === char.id)
+    );
+
+  const episodeCountInSeason = (char: Character, seasonEps: Episode[]) =>
+    seasonEps.filter((ep) => ep.characters.some((url) => charId(url) === char.id)).length;
+
+  if (isMobile) {
+    return (
+      <>
+        <h3>Main Character Episode Appearances</h3>
+        <table style={{ borderCollapse: 'collapse', tableLayout: 'fixed', width: '100%' }}>
+          <thead>
+            <tr>
+              <th style={{ width: 110, minWidth: 110, textAlign: 'left', fontSize: 11, paddingBottom: 4 }} />
+              {seasons.map(({ label, color }) => (
+                <th
+                  key={label}
+                  style={{
+                    textAlign: 'center',
+                    padding: '4px 2px',
+                    background: color,
+                    color: '#fff',
+                    fontWeight: 600,
+                    fontSize: 10,
+                    borderLeft: '2px solid #fff',
+                  }}
+                >
+                  {label}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {characters.map((char) => (
+              <tr key={char.id}>
+                <td style={{ fontSize: 11, fontWeight: 500, paddingRight: 6, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  {char.name}
+                </td>
+                {seasons.map(({ label, color, episodes: eps }) => {
+                  const appears = charAppearsInSeason(char, eps);
+                  const count = episodeCountInSeason(char, eps);
+                  return (
+                    <td
+                      key={label}
+                      title={appears ? `${count} episode${count !== 1 ? 's' : ''}` : 'Not in this season'}
+                      style={{ padding: 3, borderLeft: '2px solid #fff', textAlign: 'center' }}
+                    >
+                      <div
+                        style={{
+                          width: '100%',
+                          aspectRatio: '1',
+                          borderRadius: 3,
+                          backgroundColor: appears ? color : '#e0e0e0',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: 9,
+                          fontWeight: 700,
+                          color: appears ? '#fff' : 'transparent',
+                        }}
+                      >
+                        {count}
+                      </div>
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p style={{ fontSize: 11, color: '#888', marginTop: 8 }}>
+          Each cell shows how many episodes a character appeared in that season. Tap a cell for details.
+        </p>
+      </>
+    );
+  }
 
   return (
     <>
       <h3>Main Character Episode Appearances</h3>
       <div style={{ overflowX: 'auto' }}>
-        <table style={{ borderCollapse: 'collapse', fontSize: 12, tableLayout: 'fixed' }}>
+        <table style={{ borderCollapse: 'collapse', tableLayout: 'fixed', width: '100%' }}>
           <thead>
             <tr>
-              <th style={{ width: 160, minWidth: 160 }} />
+              <th style={{ width: 130, minWidth: 130 }} />
               {seasons.map(({ label, episodes: eps, color }) => (
                 <th
                   key={label}
@@ -88,17 +175,10 @@ export const CharacterEpisodeMatrix = ({ episodes }: { episodes: Episode[] }) =>
           </thead>
           <tbody>
             {characters.map((char) => {
-              const appearsIn = charIdSet(char);
+              const appearsIn = charEpisodeIds(char);
               return (
                 <tr key={char.id}>
-                  <td
-                    style={{
-                      paddingRight: 10,
-                      whiteSpace: 'nowrap',
-                      fontWeight: 500,
-                      fontSize: 12,
-                    }}
-                  >
+                  <td style={{ paddingRight: 10, whiteSpace: 'nowrap', fontWeight: 500, fontSize: 12 }}>
                     {char.name}
                   </td>
                   {seasons.flatMap(({ episodes: eps, color }) =>
@@ -106,17 +186,12 @@ export const CharacterEpisodeMatrix = ({ episodes }: { episodes: Episode[] }) =>
                       <td
                         key={ep.id}
                         title={`${ep.episode}: ${ep.name}`}
-                        style={{
-                          width: 14,
-                          height: 14,
-                          padding: 1,
-                          borderLeft: ei === 0 ? '3px solid #fff' : undefined,
-                        }}
+                        style={{ padding: 2, borderLeft: ei === 0 ? '3px solid #fff' : undefined }}
                       >
                         <div
                           style={{
-                            width: 12,
-                            height: 12,
+                            width: '100%',
+                            aspectRatio: '1',
                             borderRadius: 2,
                             backgroundColor: appearsIn.has(ep.id) ? color : '#e0e0e0',
                           }}
