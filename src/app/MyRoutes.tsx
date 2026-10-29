@@ -5,6 +5,7 @@ import { Profile } from '../features/profile/Profile.tsx';
 import { NFLSearch } from '../features/nfl/NFLSearch.tsx';
 import { RandMRest } from '../features/rickmorty/RandMRest.tsx';
 import ElexonBMRSPage from '../features/energy/ElexonBMRSPage.tsx';
+import PlayersPage from '../features/players/PlayersPage.tsx';
 
 export const MyRoutes = () => {
     return (
@@ -16,6 +17,7 @@ export const MyRoutes = () => {
             <Route path="/projects/nfl" element={<NFLSearch />} />       
             <Route path="/projects/randmrest" element={<RandMRest />} />
             <Route path="/projects/elexon" element={<ElexonBMRSPage />} />
+            <Route path="/projects/players" element={<PlayersPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </>
