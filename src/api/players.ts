@@ -24,3 +24,10 @@ export async function getPlayers(): Promise<PaginatedPlayers> {
 
   return response.data;
 }
+
+export async function deletePlayer(playerId: number): Promise<void> {
+  const deletePath = `http://localhost:8082/players/${playerId}`;
+  await axios.delete<void>(
+    deletePath
+  );
+}
