@@ -1,92 +1,60 @@
-import { useState, useEffect } from 'react';
-import type { Player } from '../../api/players';
 import { getPlayers, deletePlayer } from '../../api/players';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const PlayersList = () => {
-    const [players, setPlayers] = useState<Player[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [loadError, setLoadError] = useState<string | null>(null);
-    const [deleteError, setDeleteError] = useState<string | null>(null);
-    const [deletingId, setDeletingId] = useState<number | null>(null);
+    const queryClient = useQueryClient();
+    const deleteMutation = useMutation({ 
+        mutationFn: deletePlayer, 
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+                queryKey: ['players'],
+            });
+        },
+    });
 
-    async function handleDelete(playerId:number) {
-        setDeleteError(null);
-        try {
-            setDeletingId(playerId);
-            await deletePlayer(playerId);
-            setPlayers(current =>
-                current.filter(player => player.playerNo !== playerId)
-            );
-        }
-        catch (err: unknown) {
-                const message =
-                    err instanceof Error
-                    ? err.message
-                    : "Unable to delete player.";
-                setDeleteError(message);
-        }
-        finally {
-            setDeletingId(null);
-        }
-    }
+    const {
+        data,
+        isPending,
+        isError,
+        error,
+        } = useQuery({
+        queryKey: ['players'],
+        queryFn: getPlayers,
+        retry: false,
+    });    
 
-    useEffect(() => {
-        let ignore = false;
-
-        async function loadPlayers() {
-            try {
-                const result = await getPlayers();
-                if (!ignore) setPlayers(result.data);
-            }
-            catch (err: unknown) {
-                const message =
-                    err instanceof Error
-                    ? err.message
-                    : "Unable to load players";
-
-                if (!ignore) setLoadError(message);
-            }
-            finally {
-                if (!ignore) setLoading(false);
-            }
-        }
-
-        void loadPlayers();
-
-        return () => {
-            ignore = true;
-        };        
-    }, []);
-
-    if (loading) {
+    if (isPending) {
         return <p>Loading players...</p>;
     }
 
-    if (loadError) {
+    if (isError) {
         return (
             <>
-                <p>Error: {loadError}</p>
+                <p>Error: {error.message}</p>
                 <p>HINT: Check that the NestJS server is running.</p>
             </>
         );
     }
 
-    if (players.length === 0) {
+    if (data.data.length === 0) {
         return <p>No players found.</p>;
     }    
 
     return (
         <>
-        {deleteError && <p>Error: {deleteError}</p>}
+        {deleteMutation.isError && <p>Error: {deleteMutation.error.message}</p>}
         <ul>
-        {players.map((player) => (
+        {data.data.map((player) => (
             <li key={player.playerNo}>
                 {player.name} : {player.club} : {player.rating}
                 <button
-                    disabled={deletingId !== null}
-                    onClick={() => void handleDelete(player.playerNo)}
+                    disabled={deleteMutation.isPending}
+                    onClick={() => void deleteMutation.mutate(player.playerNo)}
                 >
-                    {deletingId === player.playerNo ? "Deleting..." : "Delete"}
+                    {deleteMutation.isPending &&
+                    deleteMutation.variables === player.playerNo
+                        ? "Deleting..."
+                        : "Delete"}
                 </button>
             </li>
         ))}
