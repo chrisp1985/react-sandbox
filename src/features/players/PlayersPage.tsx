@@ -2,6 +2,7 @@ import { PlayersList } from "../../components/players/PlayersList";
 import { Title } from '../../components/ui/Title';
 import { Panel } from "../../components/ui/Panel";
 import { CustomCard } from "../../components/ui/CustomCard";
+import { ScoutingReport } from "../../components/players/ScoutingReport";
 
 const PlayersPage = () => {
     return (
@@ -21,6 +22,11 @@ const PlayersPage = () => {
                     <PlayersList />
                 </CustomCard>
         </Panel>
+        <Panel colour="primary">
+                <CustomCard>                
+                    <ScoutingReport />
+                </CustomCard>
+        </Panel>        
         </>
     );
 };
