@@ -68,6 +68,18 @@ const projects: ProjectCardProps[] = [
     tags: ["React Native", "Expo", "AWS Lambda", "Anthropic", "DynamoDB", "Cognito", "SAM"],
   },
   {
+    title: "NestJS Playground",
+    url: "https://github.com/chrisp1985/nestjs-playground",
+    summary: (
+      <>
+        <p>A NestJS backend service built to explore the framework, exposing a player CRUD API backed by PostgreSQL with filtering, sorting, pagination, request validation via class-validator, and Swagger docs generated from decorators on the controllers and DTOs. It's seeded with a World Cup player dataset and serves as the API behind the Players page in this sandbox.</p>
+        <p>It also generates AI scouting reports asynchronously. Requesting a report returns an ID straight away and drops a message onto an SQS queue. A consumer running inside the app picks it up, fetches the player's scouting data from an upstream service (with retries, backoff, and a deadline), then has Claude produce a promote / retain / release recommendation and compare the player's per-90 Premier League stats against their peers. Claude's replies are constrained with JSON schema structured output and validated again before the finished report is saved to Postgres. Failed messages are retried and eventually land in a dead-letter queue.</p>
+        <p>The service has Prometheus metrics, a readiness check, and request IDs in every response and log line. GitHub Actions lints, tests with Vitest, and publishes a Docker image to GHCR. It runs on AWS Lightsail behind Caddy, provisioned with Terraform, and has Kubernetes manifests ready.</p>
+      </>
+    ),
+    tags: ["NestJS", "TypeScript", "PostgreSQL", "TypeORM", "AWS SQS", "Anthropic", "Swagger", "Terraform", "Docker", "Vitest"],
+  },
+  {
     title: "Finance Tracker",
     url: "https://github.com/chrisp1985/finance-tracker",
     image: financePic,

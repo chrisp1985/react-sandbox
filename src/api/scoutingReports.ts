@@ -2,11 +2,17 @@ export type ScoutingReport = {
   reportId: string;
   playerNo: number;
   status: 'queued' | 'completed';
+
   result: {
-    rating: number;
-    playerNo: number;
-    recommendation: string;
+    scouting: {
+      playerId: number;
+      potential: number;
+      report: string;
+    };
+    analysis: ScoutingAnalysis;
+    seniorEvaluation: SeniorScoutingEvaluation | null;
   } | null;
+
   requestedAt: string;
   completedAt: string | null;
 };
@@ -14,6 +20,21 @@ export type ScoutingReport = {
 export type ReportRequestResponse = {
   reportId: string;
   status: 'queued';
+};
+
+export type ScoutingAnalysis = {
+  summary: string;
+  recommendation: 'promote' | 'retain' | 'release';
+  reasons: string[];
+};
+
+export type SeniorScoutingEvaluation = {
+  summary: string;
+  comparisons: {
+    metric: 'goalsPer90' | 'shotsPer90';
+    observation: string;
+  }[];
+  limitations: string[];
 };
 
 const API_URL = 'http://localhost:8082';

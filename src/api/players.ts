@@ -17,9 +17,14 @@ export interface PaginatedPlayers {
   limit: number;
 }
 
-export async function getPlayers(): Promise<PaginatedPlayers> {
+export async function getPlayers(
+  limit = 20,
+): Promise<PaginatedPlayers> {
   const response = await axios.get<PaginatedPlayers>(
-    "http://localhost:8082/players"
+    'http://localhost:8082/players',
+    {
+      params: { limit },
+    },
   );
 
   return response.data;
