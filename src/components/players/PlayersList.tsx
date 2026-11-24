@@ -18,8 +18,8 @@ export const PlayersList = () => {
         isError,
         error,
         } = useQuery({
-        queryKey: ['players'],
-        queryFn: getPlayers,
+        queryKey: ['players', { limit: 20 }],
+        queryFn: () => getPlayers(20),
         retry: false,
     });    
 
